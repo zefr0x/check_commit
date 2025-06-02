@@ -1,0 +1,10 @@
+- id: conventional-commit-message
+  name: Check Conventional Commit Message
+  entry: check_commit
+  args: [
+    "74",
+    "feat,fix,refac,deps,sty,lint,test,build,cid,dev,release,docs,i18n,data,revert",
+    "Fixes,Closes,Resolves,Refs,Signed-off-by,Co-authored-by",
+  ]
+  language: python
+  stages: [commit-msg]
