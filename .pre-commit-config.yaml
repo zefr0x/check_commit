@@ -1,0 +1,59 @@
+default_install_hook_types:
+  - pre-commit
+  - commit-msg
+
+repos:
+  # Python
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+        stages: [pre-commit]
+      - id: ruff-format
+        stages: [pre-commit]
+  # Dependecies Lock
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.6.12
+    hooks:
+      - id: uv-lock
+        stages: [pre-commit]
+  - repo: local
+    hooks:
+      # Toml
+      - id: taplo-format
+        alias: taplo
+        name: taplo-format
+        description: Format TOML files
+        entry: taplo format
+        language: python
+        types: [toml]
+        additional_dependencies: [taplo]
+        stages: [pre-commit]
+      - id: taplo-lint
+        name: taplo-lint
+        description: Lint TOML files
+        entry: taplo lint
+        language: python
+        types: [toml]
+        additional_dependencies: [taplo]
+        stages: [pre-commit]
+      # Markdown, Yaml
+      - id: deno-fmt
+        name: deno fmt
+        entry: deno fmt
+        types_or: [markdown, yaml]
+        language: node
+        additional_dependencies: [deno]
+        stages: [pre-commit]
+      # Commit Message
+      - id: conventional-commit-message
+        name: Check Conventional Commit Message
+        entry: python -c 'from src.check_commit import main; raise SystemExit(main())'
+        args: [
+          "74",
+          "feat,fix,refac,deps,sty,lint,test,build,cid,dev,release,docs,i18n,data,revert",
+          "Fixes,Closes,Resolves,Refs,Signed-off-by,Co-authored-by",
+        ]
+        language: python
+        stages: [commit-msg]
