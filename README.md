@@ -38,7 +38,7 @@ default_install_hook_types:
   - commit-msg
 repos:
   - repo: https://github.com/zefr0x/check_commit
-    rev: v0.1.0
+    rev: v1.0.0
     hooks:
       - id: conventional-commit-message
         stages: [commit-msg]
