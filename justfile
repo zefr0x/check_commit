@@ -17,4 +17,4 @@ sync:
 
 clean:
 	find . -name "__pycache__" -type d -exec rm -r {} +
-	rm -r .pytest_cache
+	rm -r .pytest_cache build **/**.egg-info
